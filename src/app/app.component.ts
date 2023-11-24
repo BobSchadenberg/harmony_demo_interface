@@ -21,6 +21,21 @@ export class AppComponent {
     { label: "Blood Samples", value: "BLOOD_SAMPLES" },
     { label: "Medical Supplies", value: "MEDICAL_SUPPLIES" }
   ];
+  
+  hriPresets = [
+    "IDLE",
+    "NAVIGATING",
+    "READY_TO_LOAD_UNLOAD",
+    "LOADING_UNLOADING",
+    "LOADING_COMPLETED",
+    "ALARM"
+  ];
+
+  hriSequences = [
+    "SEQUENCE_OBSTRUCTED",
+    "STOP",
+    "CANCEL"
+  ];
 
 
   constructor(public ros: RosService) { }
@@ -47,6 +62,21 @@ export class AppComponent {
   missionCmdStr(cmd : string) {
     var cmdobj : MissionCmd = {};
     cmdobj.cmd = cmd;
+    cmdobj.topic = "harmony/mission/cmd";
+    this.missionCmd(cmdobj);
+  }
+
+  hriPreset(cmd : string) {
+    var cmdobj : MissionCmd = {};
+    cmdobj.cmd = cmd;
+    cmdobj.topic = "harmony/screen/set_hri_preset";
+    this.missionCmd(cmdobj);
+  }
+
+  hriSequence(cmd : string) {
+    var cmdobj : MissionCmd = {};
+    cmdobj.cmd = cmd;
+    cmdobj.topic = "harmony/screen/set_hri_sequence";
     this.missionCmd(cmdobj);
   }
 

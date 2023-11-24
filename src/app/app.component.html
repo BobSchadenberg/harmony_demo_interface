@@ -21,6 +21,18 @@
         <input class="m-1" type="text" pInputText [(ngModel)]="testCmd" />
         <p-button class="m-1" (click)="missionCmdStr(testCmd)" label="Run"></p-button>
     </div>
+    <h4>HRI Presets</h4>
+    <div class="card flex flex-wrap justify-content-center">
+        <ng-container *ngFor="let preset of hriPresets; let i = index">
+            <p-button class="m-1" (click)="hriPreset(preset)" label="{{preset}}"></p-button>
+        </ng-container>
+    </div>
+    <h4>HRI Sequence</h4>
+    <div class="card flex flex-wrap justify-content-center">
+        <ng-container *ngFor="let preset of hriSequences; let i = index">
+            <p-button class="m-1" (click)="hriSequence(preset)" label="{{preset}}"></p-button>
+        </ng-container>
+    </div>
 </p-card>
 
 <p-card header="Mission State" [style]="{ width: '50%', minWidth: '480px', maxWidth: '600px', margin: '10px auto' }">
