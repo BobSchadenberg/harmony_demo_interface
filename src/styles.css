@@ -1,1 +1,149 @@
-/* You can add global styles to this file, and also import other style files */
+
+body {
+    background-color: salmon;
+
+}
+
+.trayWrap {
+    background-color: rgb(240, 240, 240);
+    border-radius: 6px;
+    padding: 10px;
+    min-width: 180px;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+
+.trayWrap.open {
+    background-color: rgba(200, 220, 0, 0.2);
+}
+
+.trayWrap.closed {
+    background-color: rgba(50, 210, 80, 0.4);
+}
+
+.trayName {
+    font-weight: bold;
+}
+
+.mission, .warning {
+    text-align: center;
+    border-radius: 12px;
+    padding: 10px;
+    background-color: rgba(0, 205, 60, 0.1);
+}
+
+.warning {
+    background-color: rgba(255, 205, 0, 0.4);
+}
+
+
+.robotmap {
+    width: 1086px;
+    height: 501px;
+    border-radius: 12px;
+    border: 2px solid rgba(0,0,0,0.2); 
+    margin: 0;
+    padding: 0;
+    background: url('assets/lispolis_ground2_obs.png');
+    scale: 0.955;
+}
+
+.large {
+    font-size: 25px;
+}
+
+.markerwrap {
+    position: relative;
+    width: 0px;
+    height: 0px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+}
+
+.marker {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 6px;
+    margin: -6px 0 0 -6px;
+    padding: 0;
+    background-color: red;
+}
+
+.markerwrap.robot .marker {
+    background-color: green;
+}
+
+.markerwrap.location .marker {
+    background-color: rgba(220,220,255, 0.2);
+    border-radius: 20px;
+    border:3px solid rgba(220,220,255, 0.9);
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+}
+
+.markertext {
+    position: absolute;
+    left: 20px;
+    top: -12px;
+    margin: 0;
+    padding: 3px;
+    background-color:rgba(200,200,255, 0.95);
+    border-radius: 6px;
+    color: black;
+
+}
+
+.markerwrap.robot .markertext {
+    text-align: center;
+    background-color:rgba(0,255,0, 0.8);
+    width: 50px;
+    left: -25px;
+    top: 8px;
+}
+
+.twoPanel {
+
+}
+
+.leftPanel, .rightPanel {
+    border: 2px solid rgba(0,0,0,0.2); 
+    border-radius: 12px;
+    padding: 2px 10px;
+}
+
+.leftPanel {
+    width: 400px;
+
+}
+
+.rightPanel {
+    width: 620px;
+
+}
+
+.bottomPanel {
+    width: 1086px;
+    padding:0;
+    margin:0;
+}
+
+.overlayWrap {
+    position:absolute;
+    z-index: 2;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    padding: 0;
+    margin: 0;
+}
+
+.overlay {
+    z-index: 1;
+    border: 1px solid red;
+    background-color: rgba(0,0,0,0.3);
+    width: 100%;
+    height: 100%;
+}

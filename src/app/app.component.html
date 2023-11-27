@@ -5,30 +5,96 @@
 
 -->
 
-<p-card header="Initialize Mission" [style]="{ width: '50%', minWidth: '480px', maxWidth: '600px', margin: '10px auto' }">
-    <h4>Select Priority</h4>
-    <div class="card flex justify-content-center">
-        <p-selectButton [options]="priorityOptions" [disabled]="missionState?.mission_state != 'START'" [(ngModel)]="priority" optionLabel="label" optionValue="value" (onChange)="priorityChanged($event)"></p-selectButton>
-    </div>
-    <p class="m-2">
-    <div class="card flex justify-content-center">
-        <p-button (click)="missionCmdStr('START_MISSION')" severity="success" label="Start Mission" [disabled]="priority == null || missionState?.mission_state != 'START'"></p-button>
+<p-card header="Harmony Mission Interface" [style]="{ width: '1100px', margin: '30px auto', padding: '0' }">
+    <div class="twoPanel flex flex-wrap justify-content-center">
+        <div class="leftPanel m-2">
+            <ng-container *ngIf="missionState != null && missionState.mission_state == 'START'">
+                <h4>Set Cargo Priority first</h4>
+                <div class="m-1"><em>Please indicate which cargo should be prioritized for delivery:</em></div>
+                <p class="m-3">
+                <div class="flex justify-content-center">
+                    <p-selectButton [options]="priorityOptions" [disabled]="missionState.mission_state != 'START'" [(ngModel)]="priority" optionLabel="label" optionValue="value" (onChange)="priorityChanged($event)"></p-selectButton>
+                </div>
+                <p class="m-3">
+                <div class="flex justify-content-center">
+                    <p-button (click)="missionCmdStr('START_MISSION')" severity="success" label="Start Mission" [disabled]="priority == null || missionState.mission_state != 'START'"></p-button>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="missionState != null && missionState.mission_state != 'START'">
+                <h4>Mission State</h4>
+                <div class="m-1 mission large" *ngIf="missionState.warning_state == null || missionState.warning_state == 'NONE'">
+                    <em>{{missionState.mission_state_message}}</em>
+                </div>
+                <ng-container *ngIf="missionState.warning_state != null && missionState.warning_state != 'NONE'">
+                    <div class="m-1 large warning">
+                        <em>{{missionState.warning_state_message}}</em>
+                    </div>
+                </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="missionState == null">
+                <h4>Connection Error</h4>
+                <div class="m-1"><em>Please make sure mission server is running.</em></div>
+            </ng-container>
+        </div>
+
+        <div class="rightPanel m-2">
+            <h4>Configuration</h4>
+            <div *ngIf="missionState != null" class="m-2 trayWrap">
+                <div class="trayName">Planning Priorities</div>
+                <div *ngIf="missionState != null && missionState.mission_state != 'START'">Cargo: {{missionState.priority}} first</div>
+                <div *ngIf="missionState == null || missionState?.mission_state == 'START'">Priorities not set.</div>
+            </div>
+
+            <h4>Cargo Tray State</h4>
+            <div *ngIf="missionState != null && missionState.trays != null" class="flex flex-wrap justify-content-center m-1">
+                <ng-container *ngFor="let tray of missionState.trays; let i = index;">
+                    <div class="m-1 trayWrap {{tray.locked ? 'closed' : 'open'}}">
+                        <div class="trayName">{{tray.name}}</div>
+                        <div>Locked: {{tray.locked}}</div>
+                        <div>Empty: {{tray.empty}}</div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="bottomPanel">
+            <div class="flex justify-content-center" *ngIf="missionState != null">
+                <div class="robotmap">
+                    <ng-container *ngFor="let location of locations; let i = index;">
+                        <div class="markerwrap location" style="{{location.pose.toCSS(map_resolution, map_center, map_origin)}}">
+                            <div class="marker"></div>
+                            <div class="markertext">
+                                {{location.name}}
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div *ngIf="missionState != null && missionState.robot_pose != null" id="locRobot" class="markerwrap robot" style="{{robotPoseCSS()}}">
+                        <div class="marker"></div>
+                        <div class="markertext">
+                            Robot
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </p-card>
 
 <p-card header="Test Commands" [style]="{ width: '50%', minWidth: '480px', maxWidth: '600px', margin: '10px auto' }">
-    <div class="card flex justify-content-center">
+    <div class="flex justify-content-center">
         <input class="m-1" type="text" pInputText [(ngModel)]="testCmd" />
         <p-button class="m-1" (click)="missionCmdStr(testCmd)" label="Run"></p-button>
     </div>
     <h4>HRI Presets</h4>
-    <div class="card flex flex-wrap justify-content-center">
+    <div class="flex flex-wrap justify-content-center">
         <ng-container *ngFor="let preset of hriPresets; let i = index">
             <p-button class="m-1" (click)="hriPreset(preset)" label="{{preset}}"></p-button>
         </ng-container>
     </div>
     <h4>HRI Sequence</h4>
-    <div class="card flex flex-wrap justify-content-center">
+    <div class="flex flex-wrap justify-content-center">
         <ng-container *ngFor="let preset of hriSequences; let i = index">
             <p-button class="m-1" (click)="hriSequence(preset)" label="{{preset}}"></p-button>
         </ng-container>
