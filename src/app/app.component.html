@@ -1,7 +1,7 @@
 
 <!--
-<p-button (click)="missionCmdStr('PRIORITIZE_BLOOD_SAMPLES')">Prioritize Blood Samples</p-button>
-<p-button (click)="missionCmdStr('PRIORITIZE_MEDICAL_SUPPLIES')">Prioritize Medical Supplies</p-button>
+<p-button (click)="missionCmdStr('PRIORITY_BLOOD_SAMPLES')">Prioritize Blood Samples</p-button>
+<p-button (click)="missionCmdStr('PRIORITY_MEDICAL_SUPPLIES')">Prioritize Medical Supplies</p-button>
 
 -->
 
@@ -17,7 +17,7 @@
                 </div>
                 <p class="m-3">
                 <div class="flex justify-content-center">
-                    <p-button (click)="missionCmdStr('START_MISSION')" severity="success" label="Start Mission" [disabled]="priority == null || missionState.mission_state != 'START'"></p-button>
+                    <p-button (click)="missionCmdStr('START_MISSION')" severity="success" label="Start Mission" [disabled]="missionState.priority == null || missionState.priority.length == 0 || missionState.mission_state != 'START'"></p-button>
                 </div>
             </ng-container>
 
