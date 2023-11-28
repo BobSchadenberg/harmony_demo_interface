@@ -47,7 +47,7 @@
                 <div *ngIf="missionState == null || missionState?.mission_state == 'START'">Priorities not set.</div>
             </div>
 
-            <h4>Cargo Tray State</h4>
+            <h4>Cargo State</h4>
             <div *ngIf="missionState != null && missionState.trays != null" class="flex flex-wrap justify-content-center m-1">
                 <ng-container *ngFor="let tray of missionState.trays; let i = index;">
                     <div class="m-1 trayWrap {{tray.locked ? 'closed' : 'open'}}">
