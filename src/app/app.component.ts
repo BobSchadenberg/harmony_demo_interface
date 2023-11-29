@@ -25,8 +25,12 @@ export class AppComponent {
   hriPresets = [
     "IDLE",
     "NAVIGATING",
+    "NAVIGATING_LEFT",
+    "NAVIGATING_RIGHT",
+    "NAVIGATING_BACK",
     "READY_TO_LOAD_UNLOAD",
     "LOADING_UNLOADING",
+    "UNLOADING_WITH_ARM",
     "LOADING_COMPLETED",
     "ALARM"
   ];
