@@ -20,6 +20,7 @@ export class AppComponent {
   testCmd = "";
 
   priority?: string;
+
   priorityOptions : any[] = [
     { label: "Blood Samples", value: "BLOOD_SAMPLES" },
     { label: "Medical Supplies", value: "MEDICAL_SUPPLIES" }
@@ -52,7 +53,6 @@ export class AppComponent {
 
   _window : any;
 
-
   constructor(public ros: RosService, location: Location, windowRef : WindowRef) {
     this._window = windowRef.nativeWindow;
     console.log(this._window.location.hostname);
@@ -63,8 +63,8 @@ export class AppComponent {
     this.ros.missionState().subscribe((msg: MissionState) => {
 
       this.missionState = msg;
-      if (msg.priority)
-        this.priority = this.missionState.priority
+      //if (msg.priority)
+      //  this.priority = this.missionState.priority
 
       if (msg.locations) {
         this.locations = [];
@@ -97,6 +97,7 @@ export class AppComponent {
   }
 
   missionCmdStr(cmd : string) {
+    this.priority = undefined;
     var cmdobj : MissionCmd = {};
     cmdobj.cmd = cmd;
     cmdobj.topic = "harmony/mission/cmd";
