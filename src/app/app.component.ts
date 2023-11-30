@@ -63,6 +63,9 @@ export class AppComponent {
     this.ros.missionState().subscribe((msg: MissionState) => {
 
       this.missionState = msg;
+      if (msg.mission_state == "IDLE") {
+        this.priority = undefined;
+      }
       //if (msg.priority)
       //  this.priority = this.missionState.priority
 
@@ -97,7 +100,6 @@ export class AppComponent {
   }
 
   missionCmdStr(cmd : string) {
-    this.priority = undefined;
     var cmdobj : MissionCmd = {};
     cmdobj.cmd = cmd;
     cmdobj.topic = "harmony/mission/cmd";
