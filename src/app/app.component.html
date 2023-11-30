@@ -33,6 +33,22 @@
                 </ng-container>
             </ng-container>
 
+            <ng-container *ngIf="missionState != null && missionState.mission_state == 'READY_TO_LOAD_UNLOAD'">
+                <h4>Cargo Access</h4>
+                <p class="m-3">
+                <div class="flex justify-content-center">
+                    <p-button (click)="missionCmdStr('READY_TO_LOAD')" severity="warning" label="Start Cargo Access"></p-button>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="missionState != null && missionState.mission_state == 'LOADING_UNLOADING'">
+                <h4>Cargo Access</h4>
+                <p class="m-3">
+                <div class="flex justify-content-center">
+                    <p-button (click)="missionCmdStr('LOADING_COMPLETED')" severity="success" label="Cargo Access Completed"></p-button>
+                </div>
+            </ng-container>
+
             <ng-container *ngIf="missionState == null">
                 <h4>Connection Error</h4>
                 <div class="m-1"><em>Please make sure mission server is running.</em></div>
