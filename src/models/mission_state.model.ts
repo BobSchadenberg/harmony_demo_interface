@@ -34,7 +34,7 @@ export class Pose {
     }
 }
 
-export class Location {
+export class MapLocation {
 
     name: string;
     pose: Pose;
@@ -55,7 +55,7 @@ export class MissionState {
     trays?: TrayState[];
     robot_pose?: Pose;
     priority?: string;
-    locations?: Location[];
+    locations?: MapLocation[];
 }
 
 

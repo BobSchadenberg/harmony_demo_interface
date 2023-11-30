@@ -12,6 +12,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextModule } from 'primeng/inputtext';
 import { Card, CardModule } from 'primeng/card';
 
+import { WindowRef } from 'src/services/window.service'
+
 const config: SocketIoConfig = { url: ':5000', options: {} };
 
 @NgModule({
@@ -28,7 +30,7 @@ const config: SocketIoConfig = { url: ':5000', options: {} };
     SelectButtonModule,
     SocketIoModule.forRoot(config)
   ],
-  providers: [ RosService ],
+  providers: [ WindowRef, RosService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 import { SelectButtonChangeEvent } from 'primeng/selectbutton';
 import { MissionCmd } from 'src/models/mission_cmd.model';
-import { MissionState, Location, Pose } from 'src/models/mission_state.model';
+import { MissionState, MapLocation, Pose } from 'src/models/mission_state.model';
 import { RosService } from 'src/services/ros.service';
+import { Location } from "@angular/common";
+import { WindowRef } from 'src/services/window.service';
+
 
 @Component({
   selector: 'app-root',
@@ -45,9 +48,16 @@ export class AppComponent {
   map_origin : Pose = new Pose(-25.4, -7.74);
   map_resolution : number = 0.05;
 
-  locations: Location[] = [];
+  locations: MapLocation[] = [];
 
-  constructor(public ros: RosService) { }
+  _window : any;
+
+
+  constructor(public ros: RosService, location: Location, windowRef : WindowRef) {
+    this._window = windowRef.nativeWindow;
+    console.log(this._window.location.hostname);
+    console.log(location);
+  }
 
   ngOnInit(): void {
     this.ros.missionState().subscribe((msg: MissionState) => {
@@ -60,14 +70,14 @@ export class AppComponent {
         this.locations = [];
         msg.locations.forEach((l) => {
           this.locations.push(
-            new Location(l.name, l.pose.x, l.pose.y, l.pose.yaw)
+            new MapLocation(l.name, l.pose.x, l.pose.y, l.pose.yaw)
           );
         });
       }
     });
 
     this.ros.requestMissionState();
-    //this.locations.push(new Location("origin", "Origin", 0.0, 0.0, 0));
+    //this.locations.push(new MapLocation("origin", "Origin", 0.0, 0.0, 0));
   }
 
   robotPoseCSS() : string {

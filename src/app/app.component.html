@@ -66,12 +66,20 @@
             <h4>Cargo State</h4>
             <div *ngIf="missionState != null && missionState.trays != null" class="flex flex-wrap justify-content-center m-1">
                 <ng-container *ngFor="let tray of missionState.trays; let i = index;">
-                    <div class="m-1 trayWrap {{tray.locked ? 'closed' : 'open'}}">
+                    <div class="trayWrap {{tray.locked ? 'closed' : 'open'}}">
                         <div class="trayName">{{tray.name}}</div>
                         <div>Locked: {{tray.locked}}</div>
                         <div>Empty: {{tray.empty}}</div>
                     </div>
                 </ng-container>
+            </div>
+        </div>
+
+        <div class="camPanel m-2">
+            <div class="camFeed"  style="background-image: url('http://{{_window.location.hostname}}:8080/stream?topic=/harmony/azure_front/rgb/image_raw');">
+                <div class="camFeedTitle">
+                    <h4>Front Camera</h4>
+                </div>
             </div>
         </div>
 
@@ -98,7 +106,7 @@
     </div>
 </p-card>
 
-<p-card header="Test Commands" [style]="{ width: '50%', minWidth: '480px', maxWidth: '600px', margin: '10px auto' }">
+<p-card *ngIf="_window.location.hash == '#debug'" header="Test Commands" [style]="{ width: '50%', minWidth: '480px', maxWidth: '600px', margin: '10px auto' }">
     <div class="flex justify-content-center">
         <input class="m-1" type="text" pInputText [(ngModel)]="testCmd" />
         <p-button class="m-1" (click)="missionCmdStr(testCmd)" label="Run"></p-button>
@@ -117,7 +125,7 @@
     </div>
 </p-card>
 
-<p-card header="Mission State" [style]="{ width: '50%', minWidth: '480px', maxWidth: '600px', margin: '10px auto' }">
+<p-card *ngIf="_window.location.hash == '#debug'" header="Mission State" [style]="{ width: '50%', minWidth: '480px', maxWidth: '600px', margin: '10px auto' }">
     <pre style="overflow-x:hidden;">
 {{ missionState | json }}
     </pre>
