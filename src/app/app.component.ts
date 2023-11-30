@@ -44,8 +44,8 @@ export class AppComponent {
     "CANCEL"
   ];
 
-  map_center : Pose = new Pose(54.3, 25.05);
-  map_origin : Pose = new Pose(-25.4, -7.74);
+  map_center : Pose = new Pose(55.1, 25.4);
+  map_origin : Pose = new Pose(-13.9, -27.2);
   map_resolution : number = 0.05;
 
   locations: MapLocation[] = [];
