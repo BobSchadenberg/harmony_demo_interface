@@ -21,10 +21,10 @@ export class AppComponent {
 
   priority?: string;
 
-  priorityOptions : any[] = [
+  /* priorityOptions : any[] = [
     { label: "Blood Samples", value: "BLOOD_SAMPLES" },
     { label: "Medical Supplies", value: "MEDICAL_SUPPLIES" }
-  ];
+  ]; */
   
   hriPresets = [
     "IDLE",
@@ -36,7 +36,13 @@ export class AppComponent {
     "LOADING_UNLOADING",
     "UNLOADING_WITH_ARM",
     "LOADING_COMPLETED",
-    "ALARM"
+    "ALARM",
+    "GREET_BYE",
+    "LOADED_UNLOADED_BYE",
+    "GREET_HI",
+    "UNLOADING_COMPLETED_BY_ROBOT",
+    "FUNNY_FART_WHISTLE",
+    "LOCKED_BYE"
   ];
 
   hriSequences = [

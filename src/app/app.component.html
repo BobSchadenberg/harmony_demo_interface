@@ -9,15 +9,14 @@
     <div class="twoPanel flex flex-wrap justify-content-center">
         <div class="leftPanel m-2">
             <ng-container *ngIf="missionState != null && missionState.mission_state == 'START'">
-                <h4>Set Cargo Priority first</h4>
-                <div class="m-1"><em>Please indicate which cargo should be prioritized for delivery:</em></div>
-                <p class="m-3">
+                <h4>Call a Robot</h4>
+                <!-- <p class="m-3">
                 <div class="flex justify-content-center">
                     <p-selectButton [options]="priorityOptions" [disabled]="missionState.mission_state != 'START'" [(ngModel)]="priority" optionLabel="label" optionValue="value" (onChange)="priorityChanged($event)"></p-selectButton>
-                </div>
+                </div> -->
                 <p class="m-3">
                 <div class="flex justify-content-center">
-                    <p-button (click)="missionCmdStr('START_MISSION')" severity="success" label="Start Mission" [disabled]="missionState.priority == null || missionState.priority.length == 0 || missionState.mission_state != 'START'"></p-button>
+                    <p-button (click)="missionCmdStr('PICKUP')" severity="success" label="Call for Pickup" [disabled]="missionState.priority == null || missionState.priority.length == 0 || missionState.mission_state != 'START'"></p-button>
                 </div>
             </ng-container>
 
@@ -37,17 +36,41 @@
                 <h4>Cargo Access</h4>
                 <p class="m-3">
                 <div class="flex justify-content-center">
-                    <p-button (click)="missionCmdStr('READY_TO_LOAD')" severity="warning" label="Start Cargo Access"></p-button>
+                    <p-button (click)="missionCmdStr('OPEN_FRONT')" severity="warning" label="Front Tray"></p-button>
+                </div>
+                <p class="m-3">
+                <div class="flex justify-content-center">
+                    <p-button (click)="missionCmdStr('OPEN_TOP_TRAY')" severity="warning" label="Top Tray"></p-button>
+                </div>
+                <p class="m-3">
+                <div class="flex justify-content-center">
+                    <p-button (click)="missionCmdStr('OPEN_BOTTOM_TRAY')" severity="warning" label="Bottom Tray"></p-button>
+                </div>
+                <p class="m-3">
+                <div class="flex justify-content-center">
+                    <p-button (click)="missionCmdStr('LOADING_COMPLETED')" severity="success" label="Load Completed"></p-button>
                 </div>
             </ng-container>
 
-            <ng-container *ngIf="missionState != null && missionState.mission_state == 'LOADING_UNLOADING'">
+            <ng-container *ngIf="missionState != null && missionState.mission_state == 'ARRIVED_DELIVERY'">
+                <h4>Cargo Access</h4>
+                <p class="m-3">
+                <div class="flex justify-content-center">
+                    <p-button (click)="missionCmdStr('DELIVERY_READY')" severity="warning" label="Open Tray"></p-button>
+                </div>
+                <p class="m-3">
+                <div class="flex justify-content-center">
+                    <p-button (click)="missionCmdStr('DELIVERY_COMPLETED')" severity="success" label="Delivery Complete"></p-button>
+                </div>
+            </ng-container>
+
+            <!-- <ng-container *ngIf="missionState != null && missionState.mission_state == 'LOADING_UNLOADING'">
                 <h4>Cargo Access</h4>
                 <p class="m-3">
                 <div class="flex justify-content-center">
                     <p-button (click)="missionCmdStr('LOADING_COMPLETED')" severity="success" label="Cargo Access Completed"></p-button>
                 </div>
-            </ng-container>
+            </ng-container> -->
 
             <ng-container *ngIf="missionState == null">
                 <h4>Connection Error</h4>
@@ -56,12 +79,12 @@
         </div>
 
         <div class="rightPanel m-2">
-            <h4>Configuration</h4>
+            <!-- <h4>Configuration</h4>
             <div *ngIf="missionState != null" class="m-2 trayWrap">
                 <div class="trayName">Planning Priorities</div>
                 <div *ngIf="missionState != null && missionState.mission_state != 'START'">Cargo: {{missionState.priority}} first</div>
                 <div *ngIf="missionState == null || missionState?.mission_state == 'START'">Priorities not set.</div>
-            </div>
+            </div> -->
 
             <h4>Cargo State</h4>
             <div *ngIf="missionState != null && missionState.trays != null" class="flex flex-wrap justify-content-center m-1">
@@ -83,26 +106,6 @@
             </div>
         </div>
 
-        <div class="bottomPanel">
-            <div class="flex justify-content-center" *ngIf="missionState != null">
-                <div class="robotmap">
-                    <ng-container *ngFor="let location of locations; let i = index;">
-                        <div class="markerwrap location" style="{{location.pose.toCSS(map_resolution, map_center, map_origin)}}">
-                            <div class="marker"></div>
-                            <div class="markertext">
-                                {{location.name}}
-                            </div>
-                        </div>
-                    </ng-container>
-                    <div *ngIf="missionState != null && missionState.robot_pose != null" id="locRobot" class="markerwrap robot" style="{{robotPoseCSS()}}">
-                        <div class="marker"></div>
-                        <div class="markertext">
-                            Robot
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </p-card>
 
